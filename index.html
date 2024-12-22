@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday, Prapti!</title>
+    <style>
+        body {
+            background: url('https://img.freepik.com/premium-photo/romantic-sunset-with-heartshaped-floral-arch-petal-path_186666-13173.jpg') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            color: white;
+        }
+
+        h1 {
+            font-size: 3.5em;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            margin-top: 30px;
+        }
+
+        .romantic-text-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+        }
+
+        .romantic-text, .gift-message {
+            display: none;
+            font-size: 1.8em;
+            margin-top: 20px;
+            line-height: 1.5;
+            padding: 20px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.7);
+            color: #333;
+            max-width: 80%;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+            transition: opacity 0.5s ease;
+        }
+
+        .romantic-text {
+            background-color: rgba(255, 182, 193, 0.8);
+            font-family: 'Georgia', serif;
+            color: #ff3b71;
+        }
+
+        .gift-message {
+            background-color: rgba(255, 222, 173, 0.8);
+            font-family: 'Comic Sans MS', sans-serif;
+            color: #f4a300;
+        }
+
+        .images-container {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .images-container img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid white;
+        }
+
+        .gift-box {
+            display: inline-block;
+            width: 150px;
+            height: 150px;
+            background-color: #ffb6c1;
+            border-radius: 15px;
+            margin-top: 30px;
+            cursor: pointer;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .gift-box:hover {
+            transform: scale(1.1);
+            box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.4);
+        }
+
+        .gift-box:active {
+            transform: scale(1);
+            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .gift-box::before {
+            content: "🎁";
+            font-size: 3em;
+            display: block;
+            text-align: center;
+            padding-top: 50px;
+        }
+
+        @keyframes floatHearts {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(-30px);
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .floating-heart {
+            position: absolute;
+            font-size: 3em;
+            color: #ff69b4;
+            animation: floatHearts 2s ease-in-out infinite;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Happy Birthday, Prapti!</h1>
+
+    <!-- Images of you both -->
+    <div class="images-container">
+        <img src="bishwash.jpg" alt="Your Image" />
+        <img src="prapti.png" alt="Prapti's Image" />
+    </div>
+
+    <!-- Romantic Text Container (hidden until gift box clicked) -->
+    <div class="romantic-text-container">
+        <div id="message1" class="romantic-text">"You are the love of my life, and today, I celebrate you, my forever. Every moment with you feels like a beautiful dream come true."</div>
+        <div id="message2" class="romantic-text">"From the first moment we met, my heart knew you were the one. In your eyes, I see my future, and in your smile, I find my happiness."</div>
+        <div id="message3" class="romantic-text">"With every breath I take, I fall more in love with you. You are not just my love, you are my best friend, my confidant, and my greatest joy."</div>
+        <div id="message4" class="romantic-text">"I am so incredibly grateful for every day spent with you, and I promise to cherish you forever. On your special day, I want you to know that you are the most beautiful person in my world, inside and out."</div>
+        <div id="message5" class="romantic-text">"You light up my life in ways words can never fully express, but I will spend every day trying to show you how much you mean to me. Happy Birthday, Prapti! I love you more than words can ever say. Here's to forever together."</div>
+    </div>
+
+    <!-- Gift Messages Container (hidden until gift box clicked) -->
+    <div class="romantic-text-container">
+        <div id="giftMessage1" class="gift-message">"This gift is just a small token of my love for you. Every moment spent with you is a gift that I will cherish forever."</div>
+        <div id="giftMessage2" class="gift-message">"Your smile is the most beautiful gift I could ever receive, and I'm grateful for it every day."</div>
+        <div id="giftMessage3" class="gift-message">"I give you this gift with all my heart. You are the greatest treasure in my life."</div>
+    </div>
+
+    <!-- Gift Boxes -->
+    <div class="gift-container">
+        <div class="gift-box" onclick="toggleMessage('message1', 'giftMessage1')"></div>
+        <div class="gift-box" onclick="toggleMessage('message2', 'giftMessage2')"></div>
+        <div class="gift-box" onclick="toggleMessage('message3', 'giftMessage3')"></div>
+        <div class="gift-box" onclick="toggleMessage('message4', '')"></div>
+        <div class="gift-box" onclick="toggleMessage('message5', '')"></div>
+    </div>
+
+    <!-- Canvas for animation -->
+    <canvas id="birthdayCanvas" width="600" height="400"></canvas>
+
+    <!-- Floating hearts -->
+    <div class="floating-heart" style="top: 10%; left: 20%;">❤️</div>
+    <div class="floating-heart" style="top: 30%; left: 50%;">💖</div>
+    <div class="floating-heart" style="top: 60%; left: 70%;">💕</div>
+    <div class="floating-heart" style="top: 70%; left: 20%;">❤️</div>
+    <div class="floating-heart" style="top: 80%; left: 50%;">💖</div>
+    <div class="floating-heart" style="top: 90%; left: 70%;">💕</div>
+
+    <script>
+        const canvas = document.getElementById('birthdayCanvas');
+        const ctx = canvas.getContext('2d');
+
+        const hearts = [];
+        const maxHearts = 30;
+
+        function createHeart() {
+            const x = Math.random() * canvas.width;
+            const y = canvas.height;
+            const speedX = (Math.random() - 0.5) * 2;
+            const speedY = -Math.random() * 3 - 2;
+            const size = Math.random() * 10 + 10;
+            hearts.push({ x, y, speedX, speedY, size });
+        }
+
+        function drawHeart(x, y, size) {
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            ctx.arc(x, y, size, 0, Math.PI * 2);
+            ctx.fillStyle = '#d97f7f';
+            ctx.fill();
+            ctx.closePath();
+        }
+
+        function animateHearts() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            if (hearts.length < maxHearts) {
+                createHeart();
+            }
+
+            hearts.forEach((heart, index) => {
+                drawHeart(heart.x, heart.y, heart.size);
+                heart.x += heart.speedX;
+                heart.y += heart.speedY;
+                heart.size -= 0.1;
+
+                if (heart.size <= 0) {
+                    hearts.splice(index, 1);
+                }
+            });
+
+            requestAnimationFrame(animateHearts);
+        }
+
+        animateHearts();
+
+        // Toggle visibility of romantic and gift messages
+        function toggleMessage(romanticId, giftId) {
+            const romanticMessages = document.querySelectorAll('.romantic-text');
+            romanticMessages.forEach(message => message.style.display = 'none'); // Hide all romantic messages
+
+            const giftMessages = document.querySelectorAll('.gift-message');
+            giftMessages.forEach(message => message.style.display = 'none'); // Hide all gift messages
+
+            if (romanticId) {
+                const romanticMessage = document.getElementById(romanticId);
+                romanticMessage.style.display = romanticMessage.style.display === 'none' || romanticMessage.style.display === '' ? 'block' : 'none';
+            }
+
+            if (giftId) {
+                const giftMessage = document.getElementById(giftId);
+                giftMessage.style.display = giftMessage.style.display === 'none' || giftMessage.style.display === '' ? 'block' : 'none';
+            }
+        }
+    </script>
+</body>
+</html>
