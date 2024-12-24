@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday, Prapti!</title>
     <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             background: url('https://img.freepik.com/premium-photo/romantic-sunset-with-heartshaped-floral-arch-petal-path_186666-13173.jpg') no-repeat center center fixed;
             background-size: cover;
@@ -13,10 +17,11 @@
             margin: 0;
             padding: 0;
             color: white;
+            background-color: #f8c8dc; /* Fallback background color */
         }
 
         h1 {
-            font-size: 3.5em;
+            font-size: clamp(2rem, 5vw, 3.5rem);
             color: #fff;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
             margin-top: 30px;
@@ -27,30 +32,32 @@
             flex-direction: column;
             align-items: center;
             margin-top: 50px;
+            max-width: 90%;
         }
 
         .romantic-text, .gift-message {
             display: none;
-            font-size: 1.8em;
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
             margin-top: 20px;
+            margin-left: 90px;
             line-height: 1.5;
             padding: 20px;
             border-radius: 10px;
-            background: rgba(255, 255, 255, 0.7);
+            background: rgba(255, 255, 255, 0.8);
             color: #333;
-            max-width: 80%;
+            max-width: 100%;
             text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
             transition: opacity 0.5s ease;
         }
 
         .romantic-text {
-            background-color: rgba(255, 182, 193, 0.8);
+            background-color: rgba(255, 182, 193, 0.9);
             font-family: 'Georgia', serif;
             color: #ff3b71;
         }
 
         .gift-message {
-            background-color: rgba(255, 222, 173, 0.8);
+            background-color: rgba(255, 222, 173, 0.9);
             font-family: 'Comic Sans MS', sans-serif;
             color: #f4a300;
         }
@@ -60,11 +67,12 @@
             display: flex;
             justify-content: center;
             gap: 20px;
+            flex-wrap: wrap;
         }
 
         .images-container img {
-            width: 150px;
-            height: 150px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
             object-fit: cover;
             border: 5px solid white;
@@ -72,8 +80,8 @@
 
         .gift-box {
             display: inline-block;
-            width: 150px;
-            height: 150px;
+            width: 120px;
+            height: 120px;
             background-color: #ffb6c1;
             border-radius: 15px;
             margin-top: 30px;
@@ -94,10 +102,10 @@
 
         .gift-box::before {
             content: "🎁";
-            font-size: 3em;
+            font-size: 2.5em;
             display: block;
             text-align: center;
-            padding-top: 50px;
+            padding-top: 35px;
         }
 
         @keyframes floatHearts {
@@ -115,11 +123,78 @@
             }
         }
 
+        @keyframes heartBounce {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.5); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .heart {
+            font-size: 2em;
+            color: #ff69b4;
+            position: absolute;
+            animation: heartBounce 0.5s ease-in-out;
+        }
+
         .floating-heart {
             position: absolute;
-            font-size: 3em;
+            font-size: 2.5em;
             color: #ff69b4;
             animation: floatHearts 2s ease-in-out infinite;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5em;
+            }
+
+            .romantic-text, .gift-message {
+                margin-left: 40px;
+                font-size: 1.2em;
+                padding: 10px;
+            }
+
+            .gift-box {
+                width: 90px;
+                height: 90px;
+            }
+
+            .images-container img {
+                width: 100px;
+                height: 100px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            .romantic-text, .gift-message {
+                font-size: 1em;
+                padding: 5px;
+            }
+
+            .gift-box {
+                width: 80px;
+                height: 80px;
+            }
+
+            .images-container img {
+                width: 80px;
+                height: 80px;
+            }
+        }
+
+        .sparkle-effect {
+            display: inline-block;
+            animation: sparkle 1s infinite;
+        }
+
+        @keyframes sparkle {
+            0% { opacity: 0; }
+            50% { opacity: 1; }
+            100% { opacity: 0; }
         }
 
     </style>
@@ -127,13 +202,11 @@
 <body>
     <h1>Happy Birthday, Prapti!</h1>
 
-    <!-- Images of you both -->
     <div class="images-container">
         <img src="bishwash.jpg" alt="Your Image" />
         <img src="prapti.png" alt="Prapti's Image" />
     </div>
 
-    <!-- Romantic Text Container (hidden until gift box clicked) -->
     <div class="romantic-text-container">
         <div id="message1" class="romantic-text">"You are the love of my life, and today, I celebrate you, my forever. Every moment with you feels like a beautiful dream come true."</div>
         <div id="message2" class="romantic-text">"From the first moment we met, my heart knew you were the one. In your eyes, I see my future, and in your smile, I find my happiness."</div>
@@ -142,26 +215,22 @@
         <div id="message5" class="romantic-text">"You light up my life in ways words can never fully express, but I will spend every day trying to show you how much you mean to me. Happy Birthday, Prapti! I love you more than words can ever say. Here's to forever together."</div>
     </div>
 
-    <!-- Gift Messages Container (hidden until gift box clicked) -->
     <div class="romantic-text-container">
         <div id="giftMessage1" class="gift-message">"This gift is just a small token of my love for you. Every moment spent with you is a gift that I will cherish forever."</div>
         <div id="giftMessage2" class="gift-message">"Your smile is the most beautiful gift I could ever receive, and I'm grateful for it every day."</div>
         <div id="giftMessage3" class="gift-message">"I give you this gift with all my heart. You are the greatest treasure in my life."</div>
     </div>
 
-    <!-- Gift Boxes -->
     <div class="gift-container">
-        <div class="gift-box" onclick="toggleMessage('message1', 'giftMessage1')"></div>
-        <div class="gift-box" onclick="toggleMessage('message2', 'giftMessage2')"></div>
-        <div class="gift-box" onclick="toggleMessage('message3', 'giftMessage3')"></div>
-        <div class="gift-box" onclick="toggleMessage('message4', '')"></div>
-        <div class="gift-box" onclick="toggleMessage('message5', '')"></div>
+        <div class="gift-box" onclick="toggleMessage('message1', 'giftMessage1', this)"></div>
+        <div class="gift-box" onclick="toggleMessage('message2', 'giftMessage2', this)"></div>
+        <div class="gift-box" onclick="toggleMessage('message3', 'giftMessage3', this)"></div>
+        <div class="gift-box" onclick="toggleMessage('message4', '', this)"></div>
+        <div class="gift-box" onclick="toggleMessage('message5', '', this)"></div>        
     </div>
 
-    <!-- Canvas for animation -->
     <canvas id="birthdayCanvas" width="600" height="400"></canvas>
 
-    <!-- Floating hearts -->
     <div class="floating-heart" style="top: 10%; left: 20%;">❤️</div>
     <div class="floating-heart" style="top: 30%; left: 50%;">💖</div>
     <div class="floating-heart" style="top: 60%; left: 70%;">💕</div>
@@ -172,7 +241,6 @@
     <script>
         const canvas = document.getElementById('birthdayCanvas');
         const ctx = canvas.getContext('2d');
-
         const hearts = [];
         const maxHearts = 30;
 
@@ -217,22 +285,37 @@
 
         animateHearts();
 
-        // Toggle visibility of romantic and gift messages
-        function toggleMessage(romanticId, giftId) {
+        function toggleMessage(romanticId, giftId, giftBox) {
+            let currentlyVisible = null;
             const romanticMessages = document.querySelectorAll('.romantic-text');
-            romanticMessages.forEach(message => message.style.display = 'none'); // Hide all romantic messages
-
             const giftMessages = document.querySelectorAll('.gift-message');
-            giftMessages.forEach(message => message.style.display = 'none'); // Hide all gift messages
 
             if (romanticId) {
                 const romanticMessage = document.getElementById(romanticId);
-                romanticMessage.style.display = romanticMessage.style.display === 'none' || romanticMessage.style.display === '' ? 'block' : 'none';
+                if (currentlyVisible !== romanticMessage) {
+                    romanticMessages.forEach(message => message.style.display = 'none');
+                    romanticMessage.style.display = 'block';
+                    currentlyVisible = romanticMessage;
+                } else {
+                    romanticMessage.style.display = 'none';
+                    currentlyVisible = null;
+                }
             }
 
             if (giftId) {
                 const giftMessage = document.getElementById(giftId);
-                giftMessage.style.display = giftMessage.style.display === 'none' || giftMessage.style.display === '' ? 'block' : 'none';
+                if (currentlyVisible !== giftMessage) {
+                    giftMessages.forEach(message => message.style.display = 'none');
+                    giftMessage.style.display = 'block';
+                    currentlyVisible = giftMessage;
+                } else {
+                    giftMessage.style.display = 'none';
+                    currentlyVisible = null;
+                }
+            }
+
+            if (giftBox) {
+                giftBox.style.display = 'none';
             }
         }
     </script>
